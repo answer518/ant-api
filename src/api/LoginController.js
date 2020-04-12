@@ -7,65 +7,63 @@ import User from '../model/User'
 import bcrypt from 'bcrypt'
 
 class LoginController {
-  constructor() {}
-
-  async forget(ctx) {
+  async forget (ctx) {
     const { body } = ctx.request
     try {
-      let result = await send({
+      const result = await send({
         code: '1234',
         expire: moment().add(30, 'minutes').format('YYYY-MM-DD HH:mm:ss'),
         email: body.username,
-        user: 'Answer',
+        user: 'Answer'
       })
       ctx.body = {
         code: 200,
         data: result,
-        msg: '邮件发送成功',
+        msg: '邮件发送成功'
       }
     } catch (error) {
       console.log(error)
     }
   }
 
-  async login(ctx) {
+  async login (ctx) {
     const { body } = ctx.request
     const result = await checkCode(body.sid, body.code)
     if (result) {
-      let user = await User.findOne({ username: body.username })
+      const user = await User.findOne({ username: body.username })
       if (await bcrypt.compare(body.password, user.password)) {
         const token = jsonwebtoken.sign(
           {
-            _id: 'Answer',
+            _id: 'Answer'
             // exp: Math.floor(Date.now() / 1000 + 60 * 60 * 24)
           },
           config.JWT_SECRET,
           {
-            expiresIn: '1d', // 60 * 60
+            expiresIn: '1d' // 60 * 60
           }
         )
         ctx.body = {
           code: 200,
-          token: token,
+          token: token
         }
       } else {
         ctx.body = {
           code: 404,
-          msg: '用户名或密码错误',
+          msg: '用户名或密码错误'
         }
       }
     } else {
       ctx.body = {
         code: 401,
-        msg: '图片验证码不正确',
+        msg: '图片验证码不正确'
       }
     }
   }
 
-  async reg(ctx) {
+  async reg (ctx) {
     const { body } = ctx.request
     const result = await checkCode(body.sid, body.code)
-    let msg = {}
+    const msg = {}
     let check = true
     if (result) {
       const user1 = await User.findOne({ username: body.username })
@@ -81,17 +79,17 @@ class LoginController {
 
       if (check) {
         body.password = await bcrypt.hash(body.password, 5)
-        let user = new User({
+        const user = new User({
           username: body.username,
           nickname: body.nickname,
           password: body.password,
-          created: moment().format('YYYY-MM-DD HH:mm:ss'),
+          created: moment().format('YYYY-MM-DD HH:mm:ss')
         })
-        let result = await user.save()
+        const result = await user.save()
         ctx.body = {
           code: 200,
           data: result,
-          msg: '注册成功',
+          msg: '注册成功'
         }
         return
       }
@@ -101,7 +99,7 @@ class LoginController {
 
     ctx.body = {
       code: 500,
-      msg: msg,
+      msg: msg
     }
   }
 }

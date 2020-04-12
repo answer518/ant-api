@@ -6,7 +6,7 @@ const UserSchema = new Schema({
   username: { type: String },
   nickname: { type: String },
   password: { type: String },
-  created: { type: Date },
+  created: { type: Date }
 })
 
 const UserModel = mongoose.model('users', UserSchema)
