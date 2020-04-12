@@ -14,7 +14,7 @@ class PublicController {
       width: 150,
       height: 50,
     })
-    console.log(newCaptca.text)
+    // console.log(newCaptca.text)
     // 设置验证码有效时间为30分钟
     setValue(body.sid, newCaptca.text, 30 * 60)
     ctx.body = {

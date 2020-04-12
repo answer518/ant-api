@@ -7,11 +7,10 @@
     "start": "nodemon --exec babel-node src/index.js",
     "webpack:debug": "node --inspect-brk ./node_modules/.bin/webpack --inline --progress",
     "build": "cross-env NODE_ENV=prod webpack --config config/webpack.config.prod.js",
-    "dev": "cross-env NODE_ENV=dev nodemon --exec babel-node --inspect ./src/index.js",
     "clean": "rimraf dist",
     "watch": "cross-env NODE_ENV=dev webpack --watch --progress --hide-modules --config config/webpack.config.dev.js",
     "debug": "nodemon --inspect ./dist/server.bundle.js",
-    "start:dist": "npm-run-all -p watch debug"
+    "dev": "npm-run-all -p watch debug"
   },
   "keywords": [],
   "author": "brian@toimc.com",
@@ -42,6 +41,7 @@
     "@babel/node": "^7.6.2",
     "@babel/preset-env": "^7.6.2",
     "babel-loader": "^8.0.6",
+    "bcrypt": "^4.0.1",
     "clean-webpack-plugin": "^3.0.0",
     "cross-env": "^6.0.3",
     "nodemon": "^1.19.3",
