@@ -5,7 +5,7 @@ import uuid from 'uuid/v4'
 import moment from 'dayjs'
 import config from '../config'
 // method1
-// import { dirExists } from '@/common/Utils'
+// import { dirExists } from '@/common/utils'
 import mkdir from 'make-dir'
 // import qs from 'qs'
 

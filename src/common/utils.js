@@ -1,5 +1,5 @@
 import { getValue } from '../config/RedisConfig'
-import config from '../config/index'
+import config from '../config'
 import jwt from 'jsonwebtoken'
 import fs from 'fs'
 import path from 'path'
@@ -23,13 +23,6 @@ const checkCode = async (key, value) => {
 
 const getStats = (path) => {
   return new Promise((resolve) => {
-    // fs.stats(path, (err, stats) => {
-    //   if (err) {
-    //     resolve(false)
-    //   } else {
-    //     resolve(stats)
-    //   }
-    // })
     fs.stat(path, (err, stats) => err ? resolve(false) : resolve(stats))
   })
 }
