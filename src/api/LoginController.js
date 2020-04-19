@@ -31,7 +31,13 @@ class LoginController {
     const result = await checkCode(body.sid, body.code)
     if (result) {
       const user = await User.findOne({ username: body.username })
-      if (await bcrypt.compare(body.password, user.password)) {
+      const isValidPass = await bcrypt.compare(body.password, user.password)
+      if (isValidPass) {
+        const userJSON = user.toJSON()
+        const delFiles = ['username', 'password', 'roles']
+        delFiles.forEach(key => {
+          delete userJSON[key]
+        })
         const token = jsonwebtoken.sign(
           {
             _id: 'Answer'
@@ -44,6 +50,7 @@ class LoginController {
         )
         ctx.body = {
           code: 200,
+          data: { ...userJSON },
           token: token
         }
       } else {
