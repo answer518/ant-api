@@ -5,7 +5,7 @@ import bcrypt from 'bcrypt'
 import qs from 'qs'
 
 import config from '../config'
-import send from '../config/MailConfig'
+// import send from '../config/MailConfig'
 import { setValue, getValue } from '../config/RedisConfig'
 import { getJWTPayload } from '../common/utils'
 
@@ -142,7 +142,7 @@ class UserController {
     const obj = await getJWTPayload(ctx.header.authorization)
     // 判断用户是否修改了邮箱
     const user = await User.findOne({ _id: obj._id })
-    let msg = ''
+    const msg = ''
     if (body.username && body.username !== user.username) {
       // 用户修改了邮箱
       // 发送reset邮件
@@ -162,20 +162,20 @@ class UserController {
           expiresIn: '30m'
         })
       )
-      await send({
-        type: 'email',
-        data: {
-          key: key,
-          username: body.username
-        },
-        code: '',
-        expire: moment()
-          .add(30, 'minutes')
-          .format('YYYY-MM-DD HH:mm:ss'),
-        email: user.username,
-        user: user.name
-      })
-      msg = '更新基本资料成功，账号修改需要邮件确认，请查收邮件！'
+      // await send({
+      //   type: 'email',
+      //   data: {
+      //     key: key,
+      //     username: body.username
+      //   },
+      //   code: '',
+      //   expire: moment()
+      //     .add(30, 'minutes')
+      //     .format('YYYY-MM-DD HH:mm:ss'),
+      //   email: user.username,
+      //   user: user.name
+      // })
+      // msg = '更新基本资料成功，账号修改需要邮件确认，请查收邮件！'
     }
 
     const arr = ['username', 'mobile', 'password']
