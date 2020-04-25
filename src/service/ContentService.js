@@ -361,19 +361,19 @@ class ContentController {
     const obj = await getJWTPayload(ctx.header.authorization)
     const post = await Post.findOne({ uid: obj._id, _id: params.tid })
     if (post.id === params.tid && post.isEnd === '0') {
-      await ContentController.prototype.deletePost(ctx)
-      // const result = await Post.deleteOne({ _id: params.tid })
-      // if (result.ok === 1) {
-      //   ctx.body = {
-      //     code: 200,
-      //     msg: '删除成功'
-      //   }
-      // } else {
-      //   ctx.body = {
-      //     code: 500,
-      //     msg: '执行删除失败！'
-      //   }
-      // }
+      // await ContentController.prototype.deletePost(ctx)
+      const result = await Post.deleteOne({ _id: params.tid })
+      if (result.ok === 1) {
+        ctx.body = {
+          code: 200,
+          msg: '删除成功'
+        }
+      } else {
+        ctx.body = {
+          code: 500,
+          msg: '执行删除失败！'
+        }
+      }
     } else {
       ctx.body = {
         code: 500,
