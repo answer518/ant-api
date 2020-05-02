@@ -8,23 +8,14 @@ const PostSchema = new Schema({
   title: { type: String },
   content: { type: String },
   created: { type: Date },
-  catalog: { type: String },
-  fav: { type: String },
+  catalog: { type: String }, // 需求类型：转入，求购 代办
+  // fav: { type: String },
   isEnd: { type: String, default: '0' },
-  reads: { type: Number, default: 0 },
-  answer: { type: Number, default: 0 },
+  reads: { type: Number, default: 0 }, // 已读
+  answer: { type: Number, default: 0 }, // 回复
   status: { type: String, default: '0' },
-  isTop: { type: String, default: '0' },
-  sort: { type: String, default: 100 },
-  tags: {
-    type: Array,
-    default: [
-      // {
-      //   name: '',
-      //   class: ''
-      // }
-    ]
-  }
+  isTop: { type: String, default: '0' }, // 置顶
+  sort: { type: String, default: 100 } // 排序
 })
 
 PostSchema.pre('save', function (next) {

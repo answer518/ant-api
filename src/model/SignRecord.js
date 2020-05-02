@@ -1,3 +1,6 @@
+/**
+ * 签到记录表
+ */
 import mongoose from '../config/DBHelpler'
 import moment from 'dayjs'
 

@@ -2,7 +2,6 @@ import svgCaptcha from 'svg-captcha'
 import moment from 'moment'
 
 import User from '../model/User'
-import Comments from '../model/Comments'
 import SignRecord from '../model/SignRecord'
 import Post from '../model/Post'
 import { setValue } from '../config/RedisConfig'
@@ -52,22 +51,6 @@ class PublicController {
       total,
       data: result,
       msg: '获取热门文章成功'
-    }
-  }
-
-  async getHotComments (ctx) {
-    // 0-热门评论，1-最新评论
-    const params = ctx.query
-    const page = params.page ? parseInt(params.page) : 0
-    const limit = params.limit ? parseInt(params.limit) : 10
-    const index = params.index ? params.index : '0'
-    const result = await Comments.getHotComments(page, limit, index)
-    const total = await Comments.getHotCommentsCount(index)
-    ctx.body = {
-      code: 200,
-      data: result,
-      total,
-      msg: '获取热门评论成功'
     }
   }
 

@@ -5,17 +5,20 @@ const Schema = mongoose.Schema
 const UserSchema = new Schema({
   username: { type: String, index: { unique: true }, sparse: true },
   password: { type: String },
-  name: { type: String },
+  name: { type: String }, // 姓名
+  title: { type: String }, // 头衔
+  wechat: { type: String }, // 微信号
+  birth: { type: Date }, // 出生年月
   created: { type: Date },
   updated: { type: Date },
-  favs: { type: Number, default: 100 },
-  gender: { type: String, default: '' },
+  favs: { type: Number, default: 100 }, // 积分
+  gender: { type: String, default: '' }, // 角色
   roles: { type: Array, default: ['user'] },
   pic: { type: String, default: '/img/header.jpg' },
   mobile: { type: String, match: /^1[3-9](\d{9})$/, default: '' },
   status: { type: String, default: '0' },
   regmark: { type: String, default: '' },
-  location: { type: String, default: '' },
+  location: { type: String, default: '' }, // 地区
   isVip: { type: String, default: '0' },
   count: { type: Number, default: 0 }
 })

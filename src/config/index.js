@@ -1,6 +1,6 @@
 import path from 'path'
 
-const DB_URL = 'mongodb://127.0.0.1:27017/test_db'
+const DB_URL = 'mongodb://127.0.0.1:27017/ant_db'
 const REDIS = {
   host: '127.0.0.1',
   port: 6379, // redis默认密码

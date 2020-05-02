@@ -19,6 +19,6 @@ router.post('/updateId', contentService.updatePostByTid)
 router.post('/updatePostSettings', contentService.updatePostBatch)
 
 // 删除帖子
-// router.post('/delete', contentService.deletePost)
+router.post('/delete', contentService.deletePost)
 
 export default router
