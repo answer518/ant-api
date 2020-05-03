@@ -5,8 +5,8 @@ const Schema = mongoose.Schema
 const UserSchema = new Schema({
   username: { type: String, index: { unique: true }, sparse: true },
   password: { type: String },
-  name: { type: String }, // 姓名
-  title: { type: String }, // 头衔
+  cname: { type: String }, // 姓名
+  position: { type: String }, // 头衔
   wechat: { type: String }, // 微信号
   birth: { type: Date }, // 出生年月
   created: { type: Date },

@@ -4,40 +4,18 @@ import moment from 'dayjs'
 // method1
 // import { dirExists } from '@/common/utils'
 import mkdir from 'make-dir'
-// import qs from 'qs'
 
 import config from '../config'
 import { checkCode, getJWTPayload } from '../common/utils'
 
 import Post from '../model/Post'
 import Links from '../model/Links'
-import User from '../model/User'
+// import User from '../model/User'
 import UserCollect from '../model/UserCollect'
 
 class ContentController {
   async getPostList (ctx) {
     const body = ctx.query
-
-    // 插入测试数据
-    // const post = new Post({
-    //   title: 'test title',
-    //   content: 'test content',
-    //   catalog: 'advise',
-    //   fav: 20,
-    //   reads: 0,
-    //   answer: 0,
-    //   status: '0',
-    //   isTop: 0,
-    //   sort: 0,
-    //   tags: [
-    //     {
-    //       name: '精华',
-    //       class: ''
-    //     }
-    //   ]
-    // })
-    // const temp = await post.save()
-    // console.log('ContentController -> getPostList -> temp', temp)
 
     const sort = body.sort ? body.sort : 'created'
     const page = body.page ? parseInt(body.page) : 0
@@ -79,15 +57,6 @@ class ContentController {
         data: null,
         msg: error
       }
-    }
-  }
-
-  // 查询友链
-  async getLinks (ctx) {
-    const result = await Links.find({ type: 'links' })
-    ctx.body = {
-      code: 200,
-      data: result
     }
   }
 
@@ -162,16 +131,16 @@ class ContentController {
       const obj = await getJWTPayload(ctx.header.authorization)
       // 判断用户的积分数是否 > fav，否则，提示用户积分不足发贴
       // 用户积分足够的时候，新建Post，减除用户对应的积分
-      const user = await User.findByID({ _id: obj._id })
-      if (user.favs < body.fav) {
-        ctx.body = {
-          code: 501,
-          msg: '积分不足'
-        }
-        return
-      } else {
-        await User.updateOne({ _id: obj._id }, { $inc: { favs: -body.fav } })
-      }
+      // const user = await User.findByID({ _id: obj._id })
+      // if (user.favs < body.fav) {
+      //   ctx.body = {
+      //     code: 501,
+      //     msg: '积分不足'
+      //   }
+      //   return
+      // } else {
+      //   await User.updateOne({ _id: obj._id }, { $inc: { favs: -body.fav } })
+      // }
       const newPost = new Post(body)
       newPost.uid = obj._id
       const result = await newPost.save()

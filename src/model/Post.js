@@ -7,8 +7,10 @@ const PostSchema = new Schema({
   uid: { type: String, ref: 'users' },
   title: { type: String },
   content: { type: String },
-  created: { type: Date },
+  created: { type: Date }, // 发布时间
   catalog: { type: String }, // 需求类型：转入，求购 代办
+  qualification: { type: String }, // 资质类型
+  price: { type: String }, // 价格
   // fav: { type: String },
   isEnd: { type: String, default: '0' },
   reads: { type: Number, default: 0 }, // 已读
@@ -38,7 +40,7 @@ PostSchema.statics = {
       .limit(limit)
       .populate({
         path: 'uid',
-        select: 'name isVip pic'
+        select: 'name position location pic'
       })
   },
   countList: function (options) {

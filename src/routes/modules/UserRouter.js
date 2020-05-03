@@ -30,12 +30,6 @@ router.get('/post', contentService.getPostByUid)
 // 删除发贴记录
 router.get('/deletePost', contentService.deletePostByUid)
 
-// 获取历史消息
-router.get('/getmsg', userService.getMsg)
-
-// 获取历史消息
-router.get('/setmsg', userService.setMsg)
-
 // 保存错误日志
 // router.post('/addError', errorController.addError)
 
