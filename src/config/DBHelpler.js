@@ -1,6 +1,8 @@
 import mongoose from 'mongoose'
 import config from './index'
 
+// fixed: DeprecationWarning: collection.ensureIndex is deprecated. Use createIndexes instead
+mongoose.set('useCreateIndex', true)
 // 创建连接
 mongoose.connect(config.DB_URL, {
   useNewUrlParser: true,

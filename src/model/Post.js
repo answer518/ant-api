@@ -64,7 +64,7 @@ PostSchema.statics = {
   findByTid: function (id) {
     return this.findOne({ _id: id }).populate({
       path: 'uid',
-      select: 'name pic isVip _id'
+      select: 'name position location pic _id'
     })
   },
   getListByUid: function (id, page, limit) {

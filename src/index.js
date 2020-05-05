@@ -11,10 +11,13 @@ import compose from 'koa-compose'
 import compress from 'koa-compress'
 import config from './config'
 import errorHandle from './common/errorHandle'
+import WebSocketServer from './config/WebSocket'
 
 const app = new Koa()
+const ws = new WebSocketServer()
 
-const isDevMode = process.env.NODE_ENV !== 'production'
+ws.init()
+global.ws = ws
 
 const jwt = JWT({ secret: config.JWT_SECRET }).unless({
   path: [/^\/public/, /\/login/]
@@ -41,11 +44,13 @@ const middleware = compose([
   jwt
 ])
 
-if (!isDevMode) {
+if (!config.isDevMode) {
   app.use(compress())
 }
 
 app.use(middleware)
 app.use(router())
 
-app.listen(3000)
+app.listen(config.port, () => {
+  console.log('app is runing at ' + config.port)
+})

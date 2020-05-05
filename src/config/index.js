@@ -15,11 +15,16 @@ const publicPath = [/^\/public/, /^\/login/, /^\/content/, /^\/user/, /^\/commen
 
 const isDevMode = process.env.NODE_ENV !== 'production'
 
+const port = 3000
+const wsPort = 3001
+
 export default {
   DB_URL,
   REDIS,
   JWT_SECRET,
   uploadPath,
   publicPath,
-  isDevMode
+  isDevMode,
+  port,
+  wsPort
 }

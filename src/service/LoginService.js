@@ -78,11 +78,11 @@ class LoginController {
         msg.username = ['此邮箱已经注册，可以通过邮箱找回密码']
         check = false
       }
-      const user2 = await User.findOne({ nickname: body.nickname })
-      if (user2) {
-        msg.nickname = ['此昵称已经使用，请更换新的昵称']
-        check = false
-      }
+      // const user2 = await User.findOne({ nickname: body.nickname })
+      // if (user2) {
+      //   msg.nickname = ['此昵称已经使用，请更换新的昵称']
+      //   check = false
+      // }
 
       if (check) {
         body.password = await bcrypt.hash(body.password, 5)
