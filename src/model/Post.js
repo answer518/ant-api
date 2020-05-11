@@ -1,6 +1,4 @@
 import mongoose from '../config/DBHelpler'
-import moment from 'moment'
-
 const Schema = mongoose.Schema
 
 const PostSchema = new Schema({
@@ -46,25 +44,10 @@ PostSchema.statics = {
   countList: function (options) {
     return this.find(options).countDocuments()
   },
-  getTopWeek: function () {
-    return this.find(
-      {
-        created: {
-          $gte: moment().subtract(7, 'days')
-        }
-      },
-      {
-        answer: 1,
-        title: 1
-      }
-    )
-      .sort({ answer: -1 })
-      .limit(15)
-  },
   findByTid: function (id) {
     return this.findOne({ _id: id }).populate({
       path: 'uid',
-      select: 'name position location pic _id'
+      select: '_id name pic position location'
     })
   },
   getListByUid: function (id, page, limit) {

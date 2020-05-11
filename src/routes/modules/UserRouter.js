@@ -30,6 +30,12 @@ router.get('/post', contentService.getPostByUid)
 // 删除发贴记录
 router.get('/deletePost', contentService.deletePostByUid)
 
+// 发起聊天
+router.post('/chatWith', userService.chatWith)
+
+// 聊天用户列表
+router.get('/getChatWithUser', userService.getChatWithUser)
+
 // 保存错误日志
 // router.post('/addError', errorController.addError)
 

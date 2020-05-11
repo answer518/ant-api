@@ -12,6 +12,7 @@ import { getJWTPayload } from '../common/utils'
 import User from '../model/User'
 import SignRecord from '../model/SignRecord'
 import UserCollect from '../model/UserCollect'
+import UserChat from '../model/UserChat'
 
 class UserController {
   // 用户签到接口
@@ -439,6 +440,60 @@ class UserController {
       ctx.body = {
         code: 500,
         msg: '服务接口异常'
+      }
+    }
+  }
+
+  async getChatWithUser (ctx) {
+    const params = ctx.query
+    const userChat = await UserChat.find({
+      $or: [
+        { from_id: params.from_id },
+        { to_id: params.to_id }
+      ]
+    })
+      .sort({ created: -1 }).populate({
+        path: 'to_id',
+        select: '_id name pic position'
+      })
+    ctx.body = {
+      code: 200,
+      data: userChat,
+      msg: '发起聊天成功'
+    }
+  }
+
+  // 发起聊天
+  async chatWith (ctx) {
+    const params = ctx.query
+    let userChat = await UserChat.find({
+      $or: [
+        { from_id: params.from_id },
+        { to_id: params.to_id }
+      ]
+    })
+    // 查询有结果
+    if (userChat.length > 0) {
+      ctx.body = {
+        code: 200,
+        data: userChat,
+        msg: '发起聊天成功'
+      }
+      return
+    }
+
+    userChat = new UserChat(params)
+    const result = await userChat.save()
+    if (result) {
+      ctx.body = {
+        code: 200,
+        data: result,
+        msg: '发起聊天成功'
+      }
+    } else {
+      ctx.body = {
+        code: 500,
+        msg: '发起聊天失败'
       }
     }
   }

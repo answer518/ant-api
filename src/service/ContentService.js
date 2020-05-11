@@ -9,8 +9,6 @@ import config from '../config'
 import { checkCode, getJWTPayload } from '../common/utils'
 
 import Post from '../model/Post'
-import Links from '../model/Links'
-// import User from '../model/User'
 import UserCollect from '../model/UserCollect'
 
 class ContentController {
@@ -57,24 +55,6 @@ class ContentController {
         data: null,
         msg: error
       }
-    }
-  }
-
-  // 查询温馨提醒
-  async getTips (ctx) {
-    const result = await Links.find({ type: 'tips' })
-    ctx.body = {
-      code: 200,
-      data: result
-    }
-  }
-
-  // 本周热议
-  async getTopWeek (ctx) {
-    const result = await Post.getTopWeek()
-    ctx.body = {
-      code: 200,
-      data: result
     }
   }
 
@@ -351,6 +331,7 @@ class ContentController {
     }
   }
 
+  // 删除帖子
   async deletePost (ctx) {
     const { body } = ctx.request
     const result = await Post.deleteMany({ _id: { $in: body.ids } })
@@ -367,59 +348,7 @@ class ContentController {
     }
   }
 
-  // 添加标签
-  // async addTag (ctx) {
-  //   const { body } = ctx.request
-  //   const tag = new PostTags(body)
-  //   await tag.save()
-  //   ctx.body = {
-  //     code: 200,
-  //     msg: '标签保存成功'
-  //   }
-  // }
-
-  // 添加标签
-  // async getTags (ctx) {
-  //   const params = ctx.query
-  //   const page = params.page ? parseInt(params.page) : 0
-  //   const limit = params.limit ? parseInt(params.limit) : 10
-  //   const result = await PostTags.getList({}, page, limit)
-  //   const total = await PostTags.countList({})
-  //   ctx.body = {
-  //     code: 200,
-  //     data: result,
-  //     total,
-  //     msg: '查询tags成功！'
-  //   }
-  // }
-
-  // 删除标签
-  // async removeTag (ctx) {
-  //   const params = ctx.query
-  //   const result = await PostTags.deleteOne({ id: params.ptid })
-
-  //   ctx.body = {
-  //     code: 200,
-  //     data: result,
-  //     msg: '删除成功'
-  //   }
-  // }
-
-  // 删除标签
-  // async updateTag (ctx) {
-  //   const { body } = ctx.request
-  //   const result = await PostTags.updateOne(
-  //     { _id: body._id },
-  //     body
-  //   )
-
-  //   ctx.body = {
-  //     code: 200,
-  //     data: result,
-  //     msg: '更新成功'
-  //   }
-  // }
-
+  // 批量更新帖子
   async updatePostBatch (ctx) {
     const { body } = ctx.request
     const result = await Post.updateMany(
