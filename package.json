@@ -19,7 +19,7 @@
     "@koa/cors": "^3.0.0",
     "bluebird": "^3.7.0",
     "dayjs": "^1.8.24",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "^9.0.0",
     "koa": "^2.8.2",
     "koa-body": "^4.1.1",
     "koa-combine-routers": "^4.0.2",
